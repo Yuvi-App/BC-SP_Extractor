@@ -30,6 +30,9 @@ Partial Class Form1
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.MiscToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExtractFixJarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExtractAtkjarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExtractMapjarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExtractPlyjarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -85,7 +88,7 @@ Partial Class Form1
         '
         'MiscToolStripMenuItem
         '
-        Me.MiscToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExtractFixJarToolStripMenuItem})
+        Me.MiscToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExtractFixJarToolStripMenuItem, Me.ExtractAtkjarToolStripMenuItem, Me.ExtractMapjarToolStripMenuItem, Me.ExtractPlyjarToolStripMenuItem})
         Me.MiscToolStripMenuItem.Name = "MiscToolStripMenuItem"
         Me.MiscToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.MiscToolStripMenuItem.Text = "Misc"
@@ -93,8 +96,26 @@ Partial Class Form1
         'ExtractFixJarToolStripMenuItem
         '
         Me.ExtractFixJarToolStripMenuItem.Name = "ExtractFixJarToolStripMenuItem"
-        Me.ExtractFixJarToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
+        Me.ExtractFixJarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExtractFixJarToolStripMenuItem.Text = "Extract Fix.Jar"
+        '
+        'ExtractAtkjarToolStripMenuItem
+        '
+        Me.ExtractAtkjarToolStripMenuItem.Name = "ExtractAtkjarToolStripMenuItem"
+        Me.ExtractAtkjarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExtractAtkjarToolStripMenuItem.Text = "Extract atk.jar"
+        '
+        'ExtractMapjarToolStripMenuItem
+        '
+        Me.ExtractMapjarToolStripMenuItem.Name = "ExtractMapjarToolStripMenuItem"
+        Me.ExtractMapjarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExtractMapjarToolStripMenuItem.Text = "Extract map.jar"
+        '
+        'ExtractPlyjarToolStripMenuItem
+        '
+        Me.ExtractPlyjarToolStripMenuItem.Name = "ExtractPlyjarToolStripMenuItem"
+        Me.ExtractPlyjarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExtractPlyjarToolStripMenuItem.Text = "Extract ply.jar"
         '
         'Form1
         '
@@ -124,4 +145,7 @@ Partial Class Form1
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents MiscToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExtractFixJarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ExtractAtkjarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ExtractMapjarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ExtractPlyjarToolStripMenuItem As ToolStripMenuItem
 End Class

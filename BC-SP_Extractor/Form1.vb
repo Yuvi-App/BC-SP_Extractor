@@ -265,4 +265,122 @@ Public Class Form1
         End Using
     End Function
 
+    Private Sub ExtractAtkjarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExtractAtkjarToolStripMenuItem.Click
+        If ofdSP.ShowDialog = DialogResult.OK Then
+            ExtractATKJAR(ofdSP.FileName)
+        End If
+    End Sub
+    Function ExtractATKJAR(inputAtkJAR)
+        Using br As BinaryReader = New BinaryReader(File.Open(inputAtkJAR, FileMode.Open))
+            Dim FileNameCount = 0
+            Dim FileSize = br.ReadBytes(4)
+            Array.Reverse(FileSize)
+            Dim StartPOS = br.ReadBytes(4)
+            Array.Reverse(StartPOS)
+            br.BaseStream.Position += BitConverter.ToUInt32(StartPOS)
+            While br.BaseStream.Position < br.BaseStream.Length
+                Dim FileLengthBA = br.ReadBytes(4)
+                Array.Reverse(FileLengthBA)
+                Dim FileLength = BitConverter.ToUInt32(FileLengthBA)
+                If FileLength > 16000 Then
+                    MessageBox.Show($"I believe we got invalid data here, Go fix the offset near {br.BaseStream.Position} to extract leftover data.")
+                    Exit Function
+                ElseIf FileLength = 0 Then
+                    Exit Function
+                End If
+                Dim Filedata = br.ReadBytes(FileLength)
+                Dim FileName = ""
+                If FileNameCount > 88 Then
+                    FileName = $"tmp/{FileNameCount}.bin"
+                ElseIf FileNameCount >= 5 Then
+                    FileName = $"tmp/{FileNameCount}.mld"
+                Else
+                    FileName = $"tmp/{FileNameCount}.gif"
+                End If
+                File.WriteAllBytes(FileName, Filedata)
+                FileNameCount += 1
+            End While
+            MessageBox.Show($"Extracted: {FileNameCount}")
+        End Using
+    End Function
+
+    Private Sub ExtractMapjarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExtractMapjarToolStripMenuItem.Click
+        If ofdSP.ShowDialog = DialogResult.OK Then
+            ExtractMAPJAR(ofdSP.FileName)
+        End If
+    End Sub
+    Function ExtractMAPJAR(inputMAPJAR)
+        Using br As BinaryReader = New BinaryReader(File.Open(inputMAPJAR, FileMode.Open))
+            Try
+                Dim FileNameCount = 0
+                Dim StartPOS = br.ReadBytes(4)
+                Array.Reverse(StartPOS)
+                br.BaseStream.Position += BitConverter.ToUInt32(StartPOS)
+                While br.BaseStream.Position < br.BaseStream.Length
+                    Dim FileLengthBA = br.ReadBytes(4)
+                    Array.Reverse(FileLengthBA)
+                    Dim FileLength = BitConverter.ToUInt32(FileLengthBA)
+                    If FileLength > 16000 Then
+                        MessageBox.Show($"I believe we got invalid data here, Go fix the offset near {br.BaseStream.Position} to extract leftover data.")
+                        Exit Function
+                    ElseIf FileLength = 0 Then
+                        Exit Function
+                    End If
+                    Dim Filedata = br.ReadBytes(FileLength)
+                    Dim FileName = ""
+
+                    FileName = $"tmp/{FileNameCount}.jpeg"
+
+                    File.WriteAllBytes(FileName, Filedata)
+                    FileNameCount += 1
+                End While
+                MessageBox.Show($"Extracted: {FileNameCount}")
+            Catch ex As Exception
+
+            End Try
+
+        End Using
+    End Function
+
+    Private Sub ExtractPlyjarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExtractPlyjarToolStripMenuItem.Click
+        If ofdSP.ShowDialog = DialogResult.OK Then
+            ExtractPLYJAR(ofdSP.FileName)
+        End If
+    End Sub
+    Function ExtractPLYJAR(inputPLYJAR)
+        Using br As BinaryReader = New BinaryReader(File.Open(inputPLYJAR, FileMode.Open))
+            Dim FileNameCount = 0
+            Dim FileSize = br.ReadBytes(4)
+            Array.Reverse(FileSize)
+            Dim StartPOS = br.ReadBytes(4)
+            Array.Reverse(StartPOS)
+            br.BaseStream.Position += BitConverter.ToUInt32(StartPOS)
+            While br.BaseStream.Position < br.BaseStream.Length
+                If FileNameCount = 1 Then
+                    br.BaseStream.Position += 8
+                End If
+                Dim FileLengthBA = br.ReadBytes(4)
+                Array.Reverse(FileLengthBA)
+                Dim FileLength = BitConverter.ToUInt32(FileLengthBA)
+                If FileLength > 32000 Then
+                    MessageBox.Show($"I believe we got invalid data here, Go fix the offset near {br.BaseStream.Position} to extract leftover data.")
+                    Exit Function
+                ElseIf FileLength = 0 Then
+                    Exit Function
+                End If
+                Dim Filedata = br.ReadBytes(FileLength)
+                Dim FileName = ""
+                If FileNameCount > 88 Then
+                    FileName = $"tmp/{FileNameCount}.bin"
+                ElseIf FileNameCount >= 88 Then
+                    FileName = $"tmp/{FileNameCount}.mld"
+                Else
+                    FileName = $"tmp/{FileNameCount}.gif"
+                End If
+                File.WriteAllBytes(FileName, Filedata)
+                FileNameCount += 1
+            End While
+            MessageBox.Show($"Extracted: {FileNameCount}")
+        End Using
+    End Function
 End Class
